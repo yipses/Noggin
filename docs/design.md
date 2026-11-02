@@ -155,7 +155,7 @@ High Number takes inspiration from Big Brain Academy's harder balloon drill, but
 - **Happiness** is shown as icons only: a heart, the meter, and a gift at the end. No label.
 - The **calendar** is a small desk calendar tile: the month, the number of days trained, "trained."
 - The main button reads **"Today's training."**
-- ~~Your noggin's **name** is handwritten on a printed name line under it.~~ *(Changed 2026-11-02, section 16.)* The name line under it reads **"Your noggin"**, printed. The player's name appears in the noggin's greeting ("Good morning, Derek!").
+- ~~Your noggin's **name** is handwritten on a printed name line under it.~~ *(Changed 2026-11-02, section 16.)* The name line under it reads **"Derek's noggin"**: the player's name in their pen, "noggin" printed ("Your noggin" if there's no name). The greeting also uses the name ("Good morning, Derek!").
 - Weekly tasks are removed from the home screen for now.
 
 **Proposed**
@@ -265,6 +265,7 @@ Decisions Derek changed after the first prototype. Each overrides the original w
 - **Intro line:** "Every day you play, your noggin gets a little smarter." (was "...a little happier."). This is an explicit exception to the no-benefit-claims rule in section 2. The rule exists because of regulator action over cognitive claims (the FTC fined Lumosity in 2016); worth a legal check before launch.
 - **Removed** the subtext "A few minutes a day keeps it smiling" as redundant.
 - **Button:** "Let's go!" (was "Hi there!").
-- **The player names themselves, not the noggin.** The noggin asks "What's your name?" and replies "Hi, Derek!". Every noggin is "Your noggin": the home screen name line reads "Your noggin" (printed) and the greeting uses the player's name ("Good morning, Derek!"). Older saves that stored a noggin name start with no player name, so greetings fall back to "Good morning!". Overrides section 3 (name it), section 8 (noggin's name on the name line), and section 10 (noggin's name in pen).
+- **The player names themselves, not the noggin.** The noggin asks "What's your name?" and replies "Hi, Derek!". The home screen name line reads "Derek's noggin" (name in pen, "noggin" printed; "Your noggin" if there's no name), and the greeting uses the player's name ("Good morning, Derek!"). Possessives use a straight apostrophe because the pen font's curly one is very wide. Older saves that stored a noggin name start with no player name, so greetings fall back to "Good morning!". Overrides section 3 (name it), section 8 (noggin's name on the name line), and section 10 (noggin's name in pen).
 - **Birth year** is picked on a scroll wheel (starts at 1990, covers the last 100 years) instead of typed. The chosen year is in pen.
+- **Home layout:** the speech bubble sits at the bottom of its row so its tail reaches the noggin (it was floating up beside the score note).
 - **First test intro** states the real number of drills ("Two quick drills.") instead of a fixed number, so it stays right as drills are added. Whether the daily test runs all five score drills or rotates 3 of 5 is still open (section 13).

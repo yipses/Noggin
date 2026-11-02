@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { ALMOST, AFTER_TEST, ASK_NAME, DRILL_DONE, FIRST_MEET, FORBIDDEN_DASHES, GREETING, ONBOARD_INTRO, REUNION, RIGHT, drillsLine, greeting } from '../copy';
+import { ALMOST, AFTER_TEST, ASK_NAME, possessive, DRILL_DONE, FIRST_MEET, FORBIDDEN_DASHES, GREETING, ONBOARD_INTRO, REUNION, RIGHT, drillsLine, greeting } from '../copy';
 
 const SRC = path.join(__dirname, '..', '..');
 
@@ -24,6 +24,11 @@ describe('copy rules', () => {
     expect(greeting('night', 'Ana')).toBe('Hi there, Ana!');
     expect(greeting('morning', '')).toBe('Good morning!');
     expect(greeting('evening')).toBe('Good evening!');
+  });
+
+  it('makes possessives', () => {
+    expect(possessive('Derek')).toBe("Derek's");
+    expect(possessive(' James ')).toBe("James's");
   });
 
   it('the first test intro follows the real drill count', () => {

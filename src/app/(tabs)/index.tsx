@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { AFTER_TEST, REUNION, greeting } from '../../core/copy';
+import { AFTER_TEST, REUNION, greeting, possessive } from '../../core/copy';
 import { monthAbbrev, monthOf, timeOfDay } from '../../core/day';
 import { preview } from '../../core/happiness';
 import { daysTrainedInMonth, latestRecord, trendText, weeklyTrend } from '../../core/progress';
@@ -54,7 +54,8 @@ export default function Home() {
         {/* The noggin */}
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', minHeight: 120 }}>
-            <SpeechBubble text={bubble} tail="bottom-right" style={{ marginBottom: 4, maxWidth: 190 }} />
+            {/* Sits at the bottom of the row so its tail reaches down to the noggin. */}
+            <SpeechBubble text={bubble} tail="bottom-right" style={{ alignSelf: 'flex-end', marginBottom: -6, maxWidth: 190 }} />
             <TapedNote rotate={4} width={124} style={{ marginBottom: 6 }}>
               <Label size={11}>noggin score</Label>
               {latest ? (
@@ -70,8 +71,8 @@ export default function Home() {
           <View style={{ alignItems: 'center', marginTop: 8 }}>
             <Noggin width={250} expression={takenToday ? 'happy' : 'calm'} sparkles={takenToday} />
             <View style={{ alignItems: 'center', marginTop: 4 }}>
-              <Printed size={22} weight="medium" style={{ lineHeight: 34 }}>Your noggin</Printed>
-              <GridRule width={160} />
+              <NogginNameLine name={profile.playerName} />
+              <GridRule width={220} />
             </View>
           </View>
         </View>
@@ -98,3 +99,19 @@ export default function Home() {
     </Paper>
   );
 }
+
+/**
+ * "Derek's noggin" on the name line: the player's name in their pen, the word
+ * "noggin" printed. Without a name it reads "Your noggin", all printed.
+ */
+function NogginNameLine({ name }: { name: string }) {
+  const n = name.trim();
+  if (!n) return <Printed size={22} weight="medium" style={{ lineHeight: 34 }}>Your noggin</Printed>;
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 6, maxWidth: 300 }} accessibilityLabel={possessive(n) + ' noggin'}>
+      <Pen size={28} style={{ lineHeight: 34, flexShrink: 1 }} numberOfLines={1}>{possessive(n)}</Pen>
+      <Printed size={22} weight="medium" style={{ lineHeight: 34 }}>noggin</Printed>
+    </View>
+  );
+}
+

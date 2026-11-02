@@ -20,8 +20,10 @@ export function CalendarTile({ month, days, onPress }: { month: string; days: nu
       <View style={{ backgroundColor: color.accent, paddingVertical: 2, borderBottomWidth: size.lineWeightUi, borderColor: color.ink }}>
         <Label size={11} weight="medium" colour={color.ink} align="center">{month}</Label>
       </View>
-      <Pen size={28} align="center" style={{ lineHeight: 34, marginTop: 2 }}>{days}</Pen>
-      <Label size={9.5} align="center" style={{ marginBottom: 5, marginTop: -2 }}>trained</Label>
+      {/* Klee One sits its digits low in the line box, so the box is pulled up
+          and given room below to keep the gaps above and below the number even. */}
+      <Pen size={28} align="center" style={{ lineHeight: 30, marginTop: 0 }}>{days}</Pen>
+      <Label size={9.5} align="center" style={{ marginTop: 3, marginBottom: 6 }}>trained</Label>
     </Pressable>
   );
 }

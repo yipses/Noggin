@@ -16,7 +16,7 @@ Owner: Derek. The prototype is being built here in Claude Code.
 - No Nintendo names or IP (Brain Age, Brain Training, Dr. Kawashima, Big Brain Academy, their drill names). Drills get original names.
 - Never show the player a negative number or guilt them. The noggin can miss you; it never blames you.
 - What's the player's is handwritten in their pen (their name, scores, days, answers); everything the app says is printed.
-- The player gives their own name; the noggin is always "Your noggin" (design.md section 16).
+- The player gives their own name; the noggin is "Derek's noggin" (name in pen), or "Your noggin" without a name (design.md section 16).
 - Printed elements on the paper snap to the 20 pt dot grid.
 - Character changes follow `docs/noggin-character.md`; generate the noggin from `design/noggin/noggin.py` rather than redrawing.
 

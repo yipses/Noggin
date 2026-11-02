@@ -21,6 +21,14 @@ export function greeting(t: TimeOfDay, name?: string): string {
 }
 
 /**
+ * "Derek's", "James's". Straight apostrophe: it is written in the pen font,
+ * where the curly one is very wide. (English only; localization needs its own rule.)
+ */
+export function possessive(name: string): string {
+  return `${name.trim()}'s`;
+}
+
+/**
  * Onboarding. "Smarter" is Derek's call (2026-11-02), an explicit exception
  * to the no-benefit-claims rule; see docs/design.md section 16.
  */
