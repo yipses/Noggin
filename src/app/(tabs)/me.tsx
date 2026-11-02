@@ -16,8 +16,8 @@ export default function Me() {
         <Label size={13}>you and your noggin</Label>
         <Printed weight="bold" size={28} style={{ marginBottom: 20 }}>Me</Printed>
 
-        <Label size={12}>noggin name</Label>
-        <Pen size={30}>{p?.nogginName}</Pen>
+        <Label size={12}>your name</Label>
+        <Pen size={30}>{p?.playerName}</Pen>
         <GridRule width={200} style={{ marginBottom: 16 }} />
 
         <Label size={12}>birth year</Label>

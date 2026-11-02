@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { ALMOST, AFTER_TEST, DRILL_DONE, FIRST_MEET, FORBIDDEN_DASHES, GREETING, REUNION, RIGHT } from '../copy';
+import { ALMOST, AFTER_TEST, ASK_NAME, DRILL_DONE, FIRST_MEET, FORBIDDEN_DASHES, GREETING, ONBOARD_INTRO, REUNION, RIGHT, drillsLine, greeting } from '../copy';
 
 const SRC = path.join(__dirname, '..', '..');
 
@@ -13,10 +13,23 @@ function sourceFiles(dir: string): string[] {
 }
 
 describe('copy rules', () => {
-  const lines = [...ALMOST, ...RIGHT, ...DRILL_DONE, AFTER_TEST, REUNION, FIRST_MEET, ...Object.values(GREETING)];
+  const lines = [...ALMOST, ...RIGHT, ...DRILL_DONE, AFTER_TEST, REUNION, FIRST_MEET, ONBOARD_INTRO, ASK_NAME, drillsLine(2), greeting('morning', 'Derek'), ...Object.values(GREETING)];
 
   it('the noggin never uses em or en dashes', () => {
     for (const l of lines) expect(l).not.toMatch(FORBIDDEN_DASHES);
+  });
+
+  it('greets by name when there is one', () => {
+    expect(greeting('morning', 'Derek')).toBe('Good morning, Derek!');
+    expect(greeting('night', 'Ana')).toBe('Hi there, Ana!');
+    expect(greeting('morning', '')).toBe('Good morning!');
+    expect(greeting('evening')).toBe('Good evening!');
+  });
+
+  it('the first test intro follows the real drill count', () => {
+    expect(drillsLine(2)).toMatch(/^Two quick drills\./);
+    expect(drillsLine(5)).toMatch(/^Five quick drills\./);
+    expect(drillsLine(1)).toMatch(/^One quick drill\./);
   });
 
   it('no source file contains an em or en dash', () => {

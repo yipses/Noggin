@@ -2,7 +2,8 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { FIRST_MEET } from '../core/copy';
+import { ASK_NAME, FIRST_MEET, ONBOARD_INTRO, drillsLine } from '../core/copy';
+import { DAILY_TEST } from '../core/drills';
 import { useApp } from '../state/AppState';
 import { Button } from '../ui/Button';
 import { GridRule } from '../ui/GridRule';
@@ -11,31 +12,33 @@ import { Paper } from '../ui/Paper';
 import { SpeechBubble } from '../ui/SpeechBubble';
 import { Label, Printed } from '../ui/text';
 import { color, font } from '../ui/theme';
+import { YearWheel } from '../ui/YearWheel';
 import { Expression } from '../ui/noggin/nogginArt';
 
 type Step = 'meet' | 'name' | 'birth' | 'ready';
 
+export const DEFAULT_BIRTH_YEAR = 1990;
+
 /**
- * First launch: meet your noggin, name it, learn that the app helps keep it
- * happy, give your birth year, then take a quick test. No account first.
+ * First launch: meet your noggin, tell it your name, give your birth year,
+ * then take a quick test. No account first. (Changed 2026-11-02: the player
+ * gives their own name instead of naming the noggin; design.md section 16.)
  */
 export default function Onboarding() {
   const insets = useSafeAreaInsets();
   const { createProfile } = useApp();
   const [step, setStep] = useState<Step>('meet');
   const [name, setName] = useState('');
-  const [year, setYear] = useState('');
-
   const thisYear = new Date().getFullYear();
-  const yearNum = Number(year);
-  const yearOk = /^\d{4}$/.test(year) && yearNum >= thisYear - 110 && yearNum <= thisYear;
+  const [year, setYear] = useState(DEFAULT_BIRTH_YEAR);
   const nameOk = name.trim().length > 0;
+  const first = name.trim();
 
-  const scene: Record<Step, { bubble: string; expression: Expression }> = {
-    meet: { bubble: FIRST_MEET, expression: 'calm' },
-    name: { bubble: 'What should we call me?', expression: 'calm' },
-    birth: { bubble: `Hi! I'm ${name.trim() || 'your noggin'}!`, expression: 'happy' },
-    ready: { bubble: "Let's play!", expression: 'happy' },
+  const scene: Record<Step, { bubble: string; expression: Expression; width: number }> = {
+    meet: { bubble: FIRST_MEET, expression: 'calm', width: 240 },
+    name: { bubble: ASK_NAME, expression: 'calm', width: 190 },
+    birth: { bubble: `Hi, ${first}!`, expression: 'happy', width: 140 },
+    ready: { bubble: "Let's play!", expression: 'happy', width: 190 },
   };
 
   return (
@@ -44,24 +47,21 @@ export default function Onboarding() {
         <View style={{ flex: 1, paddingTop: insets.top + 24, paddingBottom: insets.bottom + 20, paddingHorizontal: 24 }}>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <SpeechBubble text={scene[step].bubble} tail="bottom" style={{ alignSelf: 'center', marginBottom: 16 }} />
-            <Noggin width={step === 'meet' ? 240 : 190} expression={scene[step].expression} />
+            <Noggin width={scene[step].width} expression={scene[step].expression} />
           </View>
 
           {step === 'meet' && (
             <View>
-              <Printed size={19} align="center" style={{ marginBottom: 6 }}>Every day you play, your noggin gets a little happier.</Printed>
-              <Printed size={15} weight="regular" align="center" colour={color.inkMuted} style={{ marginBottom: 24 }}>
-                A few minutes a day keeps it smiling.
-              </Printed>
-              <Button title="Hi there!" onPress={() => setStep('name')} />
+              <Printed size={19} align="center" style={{ marginBottom: 24 }}>{ONBOARD_INTRO}</Printed>
+              <Button title="Let's go!" onPress={() => setStep('name')} />
             </View>
           )}
 
           {step === 'name' && (
             <View>
-              <Label size={12} align="center">name your noggin</Label>
+              <Label size={12} align="center">your name</Label>
               <View style={{ alignItems: 'center', marginBottom: 24 }}>
-                <PenInput value={name} onChangeText={setName} placeholder="Mochi" maxLength={16} autoFocus onSubmit={() => nameOk && setStep('birth')} />
+                <PenInput value={name} onChangeText={setName} placeholder="Alex" maxLength={20} autoFocus onSubmit={() => nameOk && setStep('birth')} />
                 <GridRule width={220} />
               </View>
               <Button title="That's me!" disabled={!nameOk} onPress={() => setStep('birth')} />
@@ -74,11 +74,10 @@ export default function Onboarding() {
               <Printed size={14} weight="regular" align="center" colour={color.inkMuted} style={{ marginTop: 4 }}>
                 So we can compare your score with people your age.
               </Printed>
-              <View style={{ alignItems: 'center', marginVertical: 18 }}>
-                <PenInput value={year} onChangeText={(t) => setYear(t.replace(/\D/g, '').slice(0, 4))} placeholder="1990" keyboardType="number-pad" maxLength={4} autoFocus onSubmit={() => yearOk && setStep('ready')} />
-                <GridRule width={140} />
+              <View style={{ marginVertical: 14 }}>
+                <YearWheel from={thisYear - 100} to={thisYear} value={year} onChange={setYear} />
               </View>
-              <Button title="Next" disabled={!yearOk} onPress={() => setStep('ready')} />
+              <Button title="Next" onPress={() => setStep('ready')} />
             </View>
           )}
 
@@ -86,13 +85,13 @@ export default function Onboarding() {
             <View>
               <Printed size={19} align="center">Let's find your starting point.</Printed>
               <Printed size={15} weight="regular" align="center" colour={color.inkMuted} style={{ marginTop: 4, marginBottom: 24 }}>
-                Two quick drills. Take your time with the instructions.
+                {drillsLine(DAILY_TEST.length)}
               </Printed>
               <Button
                 title="Start my first test"
                 testID="first-test"
                 onPress={() => {
-                  createProfile(name, yearNum);
+                  createProfile(first, year);
                   router.replace('/test');
                 }}
               />
@@ -107,7 +106,7 @@ export default function Onboarding() {
 /** Text the player writes: shown in their pen. */
 function PenInput(props: {
   value: string; onChangeText: (t: string) => void; placeholder: string; maxLength: number;
-  keyboardType?: 'number-pad'; autoFocus?: boolean; onSubmit: () => void;
+  autoFocus?: boolean; onSubmit: () => void;
 }) {
   return (
     <TextInput
@@ -116,12 +115,12 @@ function PenInput(props: {
       placeholder={props.placeholder}
       placeholderTextColor={color.paperDot}
       maxLength={props.maxLength}
-      keyboardType={props.keyboardType}
       autoFocus={props.autoFocus}
       onSubmitEditing={props.onSubmit}
       returnKeyType="done"
       autoCorrect={false}
       autoCapitalize="words"
+      autoComplete="given-name"
       style={[
         { fontFamily: font.pen, fontSize: 34, color: color.pen, textAlign: 'center', minWidth: 200, paddingVertical: 2, height: 52, borderWidth: 0 },
         // Web draws a focus outline and border on inputs; the paper line is the field.

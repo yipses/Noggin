@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { AFTER_TEST, GREETING, REUNION } from '../../core/copy';
+import { AFTER_TEST, REUNION, greeting } from '../../core/copy';
 import { monthAbbrev, monthOf, timeOfDay } from '../../core/day';
 import { preview } from '../../core/happiness';
 import { daysTrainedInMonth, latestRecord, trendText, weeklyTrend } from '../../core/progress';
@@ -16,12 +16,12 @@ import { Noggin } from '../../ui/Noggin';
 import { Paper } from '../../ui/Paper';
 import { SpeechBubble } from '../../ui/SpeechBubble';
 import { TapedNote } from '../../ui/TapedNote';
-import { Label, Pen } from '../../ui/text';
+import { Label, Pen, Printed } from '../../ui/text';
 import { color } from '../../ui/theme';
 
 /**
  * Home: three bands. Top: calendar tile and profile. Middle: the noggin with
- * its speech bubble, the score note, and its handwritten name. Bottom (thumb
+ * its speech bubble, the score note, and "Your noggin" on its name line. Bottom (thumb
  * reach): the happiness row and the main action.
  */
 export default function Home() {
@@ -33,11 +33,11 @@ export default function Home() {
   const daysThisMonth = daysTrainedInMonth(data.history, monthOf(today));
   const next = preview(data.happiness, takenToday ? 'training' : 'dailyTest', now);
 
-  const bubble = takenToday ? AFTER_TEST : reunion ? REUNION : GREETING[timeOfDay(now)];
+  const bubble = takenToday ? AFTER_TEST : reunion ? REUNION : greeting(timeOfDay(now), profile.playerName);
 
   const share = () => {
     if (!latest) return;
-    sharing.shareText(`My Noggin Score today: ${latest.nogginScore}. ${profile.nogginName} says hi! Grow Your Noggin.`);
+    sharing.shareText(`My Noggin Score today: ${latest.nogginScore}. My noggin says hi! Grow Your Noggin.`);
   };
 
   return (
@@ -70,7 +70,7 @@ export default function Home() {
           <View style={{ alignItems: 'center', marginTop: 8 }}>
             <Noggin width={250} expression={takenToday ? 'happy' : 'calm'} sparkles={takenToday} />
             <View style={{ alignItems: 'center', marginTop: 4 }}>
-              <Pen size={28} style={{ lineHeight: 34 }} numberOfLines={1}>{profile.nogginName}</Pen>
+              <Printed size={22} weight="medium" style={{ lineHeight: 34 }}>Your noggin</Printed>
               <GridRule width={160} />
             </View>
           </View>

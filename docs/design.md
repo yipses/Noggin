@@ -23,6 +23,7 @@ Living design doc for Noggin, a mobile daily brain games app inspired by Nintend
 **Decided**
 - For everyone. Harmless, easy, good for you. Not gym like or effortful.
 - **No scientific or health claims.** Never claim cognitive, health, or anti ageing benefits. *(Research: the FTC fined Lumosity in 2016 over such claims.)* Copy says "keep your noggin **happy**," never "healthy."
+- **Exception** *(changed 2026-11-02, Derek; see section 16)*: the onboarding line says "Every day you play, your noggin gets a little **smarter**." This is a deliberate exception to the rule above, chosen to be direct. It is the only place the app makes this kind of claim.
 - UI copy never uses em dashes or en dashes. Hyphens in compound words are fine.
 
 **Proposed**
@@ -35,7 +36,7 @@ Living design doc for Noggin, a mobile daily brain games app inspired by Nintend
 ## 3. First launch and daily loop
 
 **Decided**
-- **First launch:** meet your noggin, **name it**, learn in simple words that this app helps keep it happy, give your **birth year**, take a quick test, get your first score.
+- **First launch:** meet your noggin, ~~**name it**~~ **tell it your name** *(changed 2026-11-02, section 16)*, learn in simple words what playing does for it, give your **birth year**, take a quick test, get your first score.
 - **Daily:** come back, take **one score test a day**, make your noggin happy, see your score change. A daily habit, almost like a Tamagotchi.
 - Keep Brain Age's split: a daily score test plus optional training drills.
 
@@ -154,7 +155,7 @@ High Number takes inspiration from Big Brain Academy's harder balloon drill, but
 - **Happiness** is shown as icons only: a heart, the meter, and a gift at the end. No label.
 - The **calendar** is a small desk calendar tile: the month, the number of days trained, "trained."
 - The main button reads **"Today's training."**
-- Your noggin's **name** is handwritten on a printed name line under it.
+- ~~Your noggin's **name** is handwritten on a printed name line under it.~~ *(Changed 2026-11-02, section 16.)* The name line under it reads **"Your noggin"**, printed. The player's name appears in the noggin's greeting ("Good morning, Derek!").
 - Weekly tasks are removed from the home screen for now.
 
 **Proposed**
@@ -177,7 +178,7 @@ High Number takes inspiration from Big Brain Academy's harder balloon drill, but
 **Decided**
 - The app's look follows the character: flat vector, premium Japanese line work, mustard and warm charcoal.
 - **A light notebook theme:** warm paper with a faint dot grid, small monospace labels, a few thin ink doodles, a highlighter swipe on key words. A seasoning, not the whole style; main type and buttons stay clean and rounded.
-- **What's yours is handwritten; everything the app says is printed.** Your noggin's name, your scores, your days trained, and your taps are in your pen (blue ballpoint by default). Labels, buttons, and the noggin's speech are printed.
+- **What's yours is handwritten; everything the app says is printed.** Your name, your scores, your days trained, and your taps are in your pen (blue ballpoint by default). Labels, buttons, and the noggin's speech are printed.
 - **Printed elements snap to the 20 pt dot grid.** Lines run exactly through a row of dots and start and end on a dot, or the paper illusion breaks.
 - Morning Paper was the starting direction and is retired in favour of the above.
 
@@ -255,3 +256,15 @@ Choices Claude made while building the first prototype. All are **Proposed**: no
 - **Character asset pipeline:** `scripts/gen_noggin.py` runs `design/noggin/noggin.py` unchanged and writes `src/ui/noggin/nogginArt.ts`, slimming paths about 10x so cheap phones render it fast. Pixel diff against the shipped SVGs is under 0.2% (anti-aliasing only).
 - **Printed lines snap to the dot grid at runtime:** `GridRule` measures its own window position and draws its stroke on the nearest dot row, starting and ending on dots.
 - **Fonts are Latin subsets** (`assets/fonts/`, built by `scripts/subset_fonts.py`). The full Klee One and M PLUS Rounded 1c files include complete Japanese sets and came to about 26 MB, which made the web preview stall on phones and would bloat the app. Subsets total about 0.5 MB. Names typed in other scripts (including Japanese) show in the system font for now; a proper per script fallback is still to plan (section 10).
+
+## 16. Changes from the original design
+
+Decisions Derek changed after the first prototype. Each overrides the original wording, which is struck through where it appears above.
+
+**2026-11-02: onboarding**
+- **Intro line:** "Every day you play, your noggin gets a little smarter." (was "...a little happier."). This is an explicit exception to the no-benefit-claims rule in section 2. The rule exists because of regulator action over cognitive claims (the FTC fined Lumosity in 2016); worth a legal check before launch.
+- **Removed** the subtext "A few minutes a day keeps it smiling" as redundant.
+- **Button:** "Let's go!" (was "Hi there!").
+- **The player names themselves, not the noggin.** The noggin asks "What's your name?" and replies "Hi, Derek!". Every noggin is "Your noggin": the home screen name line reads "Your noggin" (printed) and the greeting uses the player's name ("Good morning, Derek!"). Older saves that stored a noggin name start with no player name, so greetings fall back to "Good morning!". Overrides section 3 (name it), section 8 (noggin's name on the name line), and section 10 (noggin's name in pen).
+- **Birth year** is picked on a scroll wheel (starts at 1990, covers the last 100 years) instead of typed. The chosen year is in pen.
+- **First test intro** states the real number of drills ("Two quick drills.") instead of a fixed number, so it stays right as drills are added. Whether the daily test runs all five score drills or rotates 3 of 5 is still open (section 13).

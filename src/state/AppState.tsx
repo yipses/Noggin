@@ -7,21 +7,11 @@ import { DrillId } from '../core/norms';
 import { DayRecord, DrillRun, History, addRecord, hasTakenTest } from '../core/progress';
 import { drillScore, drillScoreExact, nogginScore } from '../core/scoring';
 import { KeyValueStore, storage as defaultStorage } from '../services';
+import { Persisted, migrate } from './persisted';
+
+export type { Persisted, Profile } from './persisted';
 
 const KEY = 'noggin/state/v1';
-
-export interface Profile {
-  nogginName: string;
-  birthYear: number;
-  createdAt: string;
-}
-
-export interface Persisted {
-  version: 1;
-  profile: Profile | null;
-  history: History;
-  happiness: HappinessState;
-}
 
 export interface RawRun {
   drillId: DrillId;
@@ -38,7 +28,7 @@ interface Ctx {
   /** True once per app open when the reunion bonus fired. */
   reunion: boolean;
   takenToday: boolean;
-  createProfile(nogginName: string, birthYear: number): void;
+  createProfile(playerName: string, birthYear: number): void;
   /** Records today's daily test (first attempt only) and fills happiness. */
   completeDailyTest(runs: RawRun[]): { record: DayRecord; gift: boolean; from: number; counted: boolean };
   /** A training run from the Drills tab: fills happiness a little. */
@@ -91,7 +81,7 @@ export function AppStateProvider({ children, store = defaultStorage }: { childre
       let loaded = fresh(t);
       try {
         const raw = await store.get(KEY);
-        if (raw) loaded = { ...loaded, ...(JSON.parse(raw) as Persisted) };
+        if (raw) loaded = migrate({ ...loaded, ...(JSON.parse(raw) as Persisted) });
       } catch {
         // Corrupt or unavailable storage: start fresh rather than crash.
       }
@@ -126,8 +116,8 @@ export function AppStateProvider({ children, store = defaultStorage }: { childre
     const takenToday = hasTakenTest(data.history, today);
     return {
       ready, data, now, today, reunion, takenToday,
-      createProfile(nogginName, birthYear) {
-        commit({ ...dataRef.current, profile: { nogginName: nogginName.trim(), birthYear, createdAt: new Date().toISOString() } });
+      createProfile(playerName, birthYear) {
+        commit({ ...dataRef.current, profile: { playerName: playerName.trim(), birthYear, createdAt: new Date().toISOString() } });
       },
       completeDailyTest(runs) {
         const t = new Date();

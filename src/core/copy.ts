@@ -13,6 +13,27 @@ export const GREETING: Record<TimeOfDay, string> = {
   night: 'Hi there!',
 };
 
+/** Greeting with the player's name when we have it: "Good morning, Derek!" */
+export function greeting(t: TimeOfDay, name?: string): string {
+  const g = GREETING[t];
+  const n = name?.trim();
+  return n ? `${g.slice(0, -1)}, ${n}!` : g;
+}
+
+/**
+ * Onboarding. "Smarter" is Derek's call (2026-11-02), an explicit exception
+ * to the no-benefit-claims rule; see docs/design.md section 16.
+ */
+export const ONBOARD_INTRO = 'Every day you play, your noggin gets a little smarter.';
+export const ASK_NAME = "What's your name?";
+
+const COUNT_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'];
+/** "Two quick drills." for the first test intro; follows the real drill count. */
+export function drillsLine(n: number): string {
+  const w = COUNT_WORDS[n] ?? String(n);
+  return `${w} quick ${n === 1 ? 'drill' : 'drills'}. Take your time with the instructions.`;
+}
+
 export const AFTER_TEST = 'That felt great!';
 export const REUNION = "You're back! I missed you!";
 export const FIRST_MEET = 'Hello! I’m your noggin.';
