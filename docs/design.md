@@ -26,7 +26,6 @@ Living design doc for Noggin, a mobile daily brain games app inspired by Nintend
 - UI copy never uses em dashes or en dashes. Hyphens in compound words are fine.
 
 **Proposed**
-- *(Research)* The FTC fined Lumosity in 2016 over cognitive benefit claims. Get a legal check on the "smarter" onboarding line before launch.
 - No Nintendo IP: no "Brain Age," "Brain Training," Dr. Kawashima, Big Brain Academy, or their drill names, and nothing too close (for example "Mind Years"). Every drill gets an original name.
 - Build original versions of research tasks; don't copy items or names from clinical batteries.
 - Trademark search on "Noggin" (Nickelodeon has used it) and on the character design.
