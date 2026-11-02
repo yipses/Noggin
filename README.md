@@ -53,6 +53,18 @@ docs/          Design doc, screen specs, character, drill reference
 scripts/       gen_noggin.py: regenerates the noggin art from design/noggin/noggin.py
 ```
 
+## Fonts
+
+The app ships Latin subsets of its fonts in `assets/fonts/` (about 0.5 MB instead of 26 MB). To rebuild them after changing which characters are needed:
+
+```bash
+pip install fonttools
+```
+
+```bash
+npm run fonts
+```
+
 ## Changing the noggin
 
 Never redraw it. Edit presets in `design/noggin/noggin.py` following `docs/noggin-character.md`, then:

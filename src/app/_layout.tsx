@@ -1,6 +1,3 @@
-import { DMMono_400Regular, DMMono_500Medium } from '@expo-google-fonts/dm-mono';
-import { KleeOne_400Regular, KleeOne_600SemiBold } from '@expo-google-fonts/klee-one';
-import { MPLUSRounded1c_400Regular, MPLUSRounded1c_500Medium, MPLUSRounded1c_700Bold } from '@expo-google-fonts/m-plus-rounded-1c';
 import { useFonts } from 'expo-font';
 import { ErrorBoundaryProps, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -15,10 +12,15 @@ SplashScreen.preventAutoHideAsync().catch(() => {});
 
 function Gate() {
   const { ready } = useApp();
+  // Latin subsets built by scripts/subset_fonts.py (about 0.5 MB in all).
   const [fontsLoaded, fontError] = useFonts({
-    MPLUSRounded1c_400Regular, MPLUSRounded1c_500Medium, MPLUSRounded1c_700Bold,
-    DMMono_400Regular, DMMono_500Medium,
-    KleeOne_400Regular, KleeOne_600SemiBold,
+    MPLUSRounded1c_400Regular: require('../../assets/fonts/MPLUSRounded1c_400Regular.ttf'),
+    MPLUSRounded1c_500Medium: require('../../assets/fonts/MPLUSRounded1c_500Medium.ttf'),
+    MPLUSRounded1c_700Bold: require('../../assets/fonts/MPLUSRounded1c_700Bold.ttf'),
+    DMMono_400Regular: require('../../assets/fonts/DMMono_400Regular.ttf'),
+    DMMono_500Medium: require('../../assets/fonts/DMMono_500Medium.ttf'),
+    KleeOne_400Regular: require('../../assets/fonts/KleeOne_400Regular.ttf'),
+    KleeOne_600SemiBold: require('../../assets/fonts/KleeOne_600SemiBold.ttf'),
   });
   // Never wait on fonts forever: after a few seconds, go on with system fonts.
   const [fontTimeout, setFontTimeout] = useState(false);
