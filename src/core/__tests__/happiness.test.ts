@@ -45,6 +45,12 @@ describe('happiness meter', () => {
     expect(r.state.level).toBeCloseTo(REUNION_BONUS);
   });
 
+  it('a new noggin starts empty and the first test fills it', () => {
+    const fresh = initialHappiness(t0);
+    expect(fresh.level).toBe(0);
+    expect(fill(fresh, 'dailyTest', later(1)).state.level).toBeCloseTo(FILL.dailyTest);
+  });
+
   it('a brand new noggin gets no reunion', () => {
     expect(settle(initialHappiness(t0), later(500)).reunion).toBe(false);
   });

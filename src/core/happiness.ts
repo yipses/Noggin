@@ -26,8 +26,8 @@ export const DRAIN_PER_DAY = 0.15;
 export const GRACE_HOURS = 30;
 /** Instant boost when returning to an empty meter. */
 export const REUNION_BONUS = 0.25;
-/** Fresh noggins start here. */
-export const START_LEVEL = 0.2;
+/** A new noggin's meter starts empty (design.md section 6). */
+export const START_LEVEL = 0;
 
 export interface HappinessState {
   /** 0 to 1. */

@@ -17,9 +17,9 @@ export interface Persisted {
 }
 
 /**
- * Older saves named the noggin (profile.nogginName). Since 2026-11-02 the
- * player gives their own name instead; that old value was the noggin's name,
- * so it isn't reused as the player's name.
+ * Older saves named the noggin (profile.nogginName). Players now give their
+ * own name instead; that old value was the noggin's name, so it isn't reused
+ * as the player's name.
  */
 export function migrate(d: Persisted): Persisted {
   if (!d.profile) return d;

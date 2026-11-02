@@ -29,8 +29,8 @@ export function possessive(name: string): string {
 }
 
 /**
- * Onboarding. "Smarter" is Derek's call (2026-11-02), an explicit exception
- * to the no-benefit-claims rule; see docs/design.md section 16.
+ * Onboarding. "Smarter" is the one deliberate exception to the
+ * no-benefit-claims rule (docs/design.md section 2).
  */
 export const ONBOARD_INTRO = 'Every day you play, your noggin gets a little smarter.';
 export const ASK_NAME = "What's your name?";

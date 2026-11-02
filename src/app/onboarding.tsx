@@ -21,8 +21,7 @@ export const DEFAULT_BIRTH_YEAR = 1990;
 
 /**
  * First launch: meet your noggin, tell it your name, give your birth year,
- * then take a quick test. No account first. (Changed 2026-11-02: the player
- * gives their own name instead of naming the noggin; design.md section 16.)
+ * then take a quick test. No account first (design.md section 3).
  */
 export default function Onboarding() {
   const insets = useSafeAreaInsets();

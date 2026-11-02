@@ -11,12 +11,12 @@ Owner: Derek. The prototype is being built here in Claude Code.
 - `docs/drills.md`: drill concepts. `design/tokens.json`: colours, fonts, grid.
 
 ## Hard rules
-- No scientific or health claims anywhere. The noggin is kept **happy**, never "healthy." One exception, Derek's call: the onboarding line says the noggin gets "a little smarter" (design.md section 16). Don't add more.
+- No scientific or health claims anywhere. The noggin is kept **happy**, never "healthy." One exception: the onboarding line says the noggin gets "a little smarter" (design.md section 2). Don't add more.
 - UI copy never uses em dashes or en dashes. Hyphens in compound words are fine.
 - No Nintendo names or IP (Brain Age, Brain Training, Dr. Kawashima, Big Brain Academy, their drill names). Drills get original names.
 - Never show the player a negative number or guilt them. The noggin can miss you; it never blames you.
 - What's the player's is handwritten in their pen (their name, scores, days, answers); everything the app says is printed.
-- The player gives their own name; the noggin is "Derek's noggin" (name in pen), or "Your noggin" without a name (design.md section 16).
+- The player gives their own name; the noggin is "Derek's noggin" (name in pen), or "Your noggin" without a name.
 - Printed elements on the paper snap to the 20 pt dot grid.
 - Character changes follow `docs/noggin-character.md`; generate the noggin from `design/noggin/noggin.py` rather than redrawing.
 
