@@ -22,7 +22,14 @@ export function DrillDone({ dots, line, score, comparison, buttonTitle, onNext }
   const insets = useSafeAreaInsets();
   return (
     <View style={{ flex: 1, paddingTop: insets.top + 28, paddingBottom: insets.bottom + 20, paddingHorizontal: 20 }}>
-      {dots ? <ProgressDots total={dots.total} done={dots.done} /> : <View style={{ height: 12 }} />}
+      {dots ? (
+        <View style={{ alignItems: 'center', gap: 6 }}>
+          <ProgressDots total={dots.total} done={dots.done} />
+          <Label size={12}>{dots.done} of {dots.total} done</Label>
+        </View>
+      ) : (
+        <View style={{ height: 12 }} />
+      )}
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <SpeechBubble text={line} tail="bottom" style={{ alignSelf: 'center', marginBottom: 18 }} />
         <Noggin width={220} expression="happy" />

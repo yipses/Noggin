@@ -225,6 +225,7 @@ High Number takes inspiration from Big Brain Academy's harder balloon drill, but
 - Bonus game concept
 - Ad placement, unlock price, regional pricing
 - Plan for players under 13
+- How to explain a drill score on the drill done screen (nothing says 50 is average yet). Options considered: a small scale with 50 marked, a printed "50 is average", adding the raw time, or the noggin explaining on the first run
 
 ## 14. Workflow
 
