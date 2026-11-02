@@ -16,7 +16,6 @@ interface Props {
   /** Content seed: the day key, so content is fresh daily. */
   seed: string;
   caption: string;
-  dots?: { total: number; done: number };
   /** Text under the score: "+3 last time" etc. */
   comparisonFor: (score: number) => string;
   doneButton: string;
@@ -28,11 +27,11 @@ interface Props {
 type Phase = 'intro' | 'practice' | 'play' | 'done';
 
 /** intro -> (practice, untimed) -> play -> done, for one drill. */
-export function DrillRunner({ drillId, seed, caption, dots, comparisonFor, doneButton, onResult, onNext, onClose }: Props) {
+export function DrillRunner({ drillId, seed, caption, comparisonFor, doneButton, onResult, onNext, onClose }: Props) {
   const [phase, setPhase] = useState<Phase>('intro');
   const [practised, setPractised] = useState(false);
   const [score, setScore] = useState(0);
-  const line = useMemo(() => drillDoneLine(rngFor('done', seed, drillId)), [seed, drillId]);
+  const line = useMemo(() => drillDoneLine(rngFor('done', seed, drillId), score), [seed, drillId, score]);
   const Play = drillId === 'highsLows' ? HighsLowsPlay : QuickSumsPlay;
 
   if (phase === 'intro') {
@@ -80,7 +79,6 @@ export function DrillRunner({ drillId, seed, caption, dots, comparisonFor, doneB
   }
   return (
     <DrillDone
-      dots={dots}
       line={line}
       score={score}
       comparison={comparisonFor(score)}

@@ -10,19 +10,3 @@ export function ProgressBar({ value }: { value: number }) {
   );
 }
 
-/** One dot per drill in today's test. */
-export function ProgressDots({ total, done }: { total: number; done: number }) {
-  return (
-    <View style={{ flexDirection: 'row', gap: 10, justifyContent: 'center' }} accessibilityLabel={`${done} of ${total} drills done`}>
-      {Array.from({ length: total }, (_, i) => (
-        <View
-          key={i}
-          style={{
-            width: 12, height: 12, borderRadius: 6, borderWidth: size.lineWeightUi, borderColor: color.ink,
-            backgroundColor: i < done ? color.accent : '#FFFFFF',
-          }}
-        />
-      ))}
-    </View>
-  );
-}

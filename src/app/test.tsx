@@ -31,7 +31,6 @@ export default function DailyTest() {
         drillId={drillId}
         seed={today}
         caption={`drill ${index + 1} of ${DAILY_TEST.length}`}
-        dots={{ total: DAILY_TEST.length, done: index + 1 }}
         comparisonFor={(s) => drillComparisonText(s, lastDrillScore(data.history, drillId, today))}
         doneButton={last ? 'See my score' : 'Next drill'}
         onResult={(r) => {

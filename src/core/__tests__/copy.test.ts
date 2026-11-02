@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { ALMOST, AFTER_TEST, ASK_NAME, possessive, DRILL_DONE, FIRST_MEET, FORBIDDEN_DASHES, GREETING, ONBOARD_INTRO, REUNION, RIGHT, drillsLine, greeting } from '../copy';
+import { ALMOST, AFTER_TEST, ASK_NAME, possessive, DRILL_DONE, DRILL_DONE_FAST, drillDoneLine, FIRST_MEET, FORBIDDEN_DASHES, GREETING, ONBOARD_INTRO, REUNION, RIGHT, drillsLine, greeting } from '../copy';
 
 const SRC = path.join(__dirname, '..', '..');
 
@@ -13,7 +13,7 @@ function sourceFiles(dir: string): string[] {
 }
 
 describe('copy rules', () => {
-  const lines = [...ALMOST, ...RIGHT, ...DRILL_DONE, AFTER_TEST, REUNION, FIRST_MEET, ONBOARD_INTRO, ASK_NAME, drillsLine(2), greeting('morning', 'Derek'), ...Object.values(GREETING)];
+  const lines = [...ALMOST, ...RIGHT, ...DRILL_DONE, ...DRILL_DONE_FAST, AFTER_TEST, REUNION, FIRST_MEET, ONBOARD_INTRO, ASK_NAME, drillsLine(2), greeting('morning', 'Derek'), ...Object.values(GREETING)];
 
   it('the noggin never uses em or en dashes', () => {
     for (const l of lines) expect(l).not.toMatch(FORBIDDEN_DASHES);
@@ -24,6 +24,17 @@ describe('copy rules', () => {
     expect(greeting('night', 'Ana')).toBe('Hi there, Ana!');
     expect(greeting('morning', '')).toBe('Good morning!');
     expect(greeting('evening')).toBe('Good evening!');
+  });
+
+  it('only praises speed for an above average score', () => {
+    let seed = 1;
+    const rng = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+    for (let i = 0; i < 200; i++) {
+      expect(DRILL_DONE_FAST).not.toContain(drillDoneLine(rng, 0));
+      expect(DRILL_DONE_FAST).not.toContain(drillDoneLine(rng, 50));
+    }
+    const fast = new Set(Array.from({ length: 200 }, () => drillDoneLine(rng, 70)));
+    expect([...fast].some((l) => DRILL_DONE_FAST.includes(l))).toBe(true);
   });
 
   it('makes possessives', () => {

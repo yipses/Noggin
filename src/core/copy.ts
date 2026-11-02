@@ -48,7 +48,9 @@ export const FIRST_MEET = 'Hello! I’m your noggin.';
 
 export const RIGHT = ['Nice!', 'Yes!', 'Got it!', 'Nice!'];
 export const ALMOST = ['Almost!', 'So close!', 'Try another!', 'Nearly!'];
-export const DRILL_DONE = ['So quick!', 'Lovely!', 'That was fun!', 'Great work!'];
+/** Drill done cheers. Speed praise only for an above average score; the rest suit any score. */
+export const DRILL_DONE_FAST = ['So quick!', 'Speedy!'];
+export const DRILL_DONE = ['Lovely!', 'That was fun!', 'Great work!', 'All done!'];
 
 export function rightLine(rng: Rng): string {
   return pick(rng, RIGHT);
@@ -59,8 +61,8 @@ export function almostLine(count: number): string {
   return ALMOST[count % ALMOST.length];
 }
 
-export function drillDoneLine(rng: Rng): string {
-  return pick(rng, DRILL_DONE);
+export function drillDoneLine(rng: Rng, score: number): string {
+  return pick(rng, score > 50 ? [...DRILL_DONE_FAST, ...DRILL_DONE] : DRILL_DONE);
 }
 
 /** Guard used by tests: UI copy must never contain em or en dashes. */

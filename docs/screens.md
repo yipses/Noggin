@@ -35,7 +35,7 @@ Three bands, top to bottom.
 1. **Intro.** Close button. "drill 3 of 5" and the drill name. An example card: on the "highest" side, a large 3 beside a small 8 with the 8 circled in pen; on the "lowest" side, the reverse trick. The noggin's tip: "Ignore the size. Read the number!" Buttons: Start, Practice first (untimed).
 2. **Playing.** Top: close button, a thin progress bar, "7/20". Instruction: "tap the" in small print, then **highest** or **lowest** in large bold type with a mustard highlighter swipe behind it, plus an up or down arrow so it reads without words. Five numbers in deliberately mismatched sizes sit directly on the paper. The noggin watches from the bottom left corner, lifted well clear of the bottom edge.
 3. **Answered.** The tapped number is circled in the player's pen; the noggin says "Nice!"
-4. **Drill done.** Five progress dots for today's drills, a happy noggin ("So quick!"), the drill score handwritten on a taped note with "+3 last time", and a Next drill button.
+4. **Drill done.** A happy noggin cheering (speed praise like "So quick!" only for an above average score), the drill score handwritten on a taped note with "+3 last time", and a Next drill button. No progress dots: the intro already says "drill 1 of 2".
 
 ## Drill: Quick Sums (Calculations × 20)
 
