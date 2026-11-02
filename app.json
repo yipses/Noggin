@@ -31,6 +31,9 @@
     ],
     "splash": {
       "backgroundColor": "#FAF6EE"
+    },
+    "experiments": {
+      "baseUrl": "/Noggin"
     }
   }
 }
