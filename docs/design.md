@@ -37,7 +37,7 @@ Living design doc for Noggin, a mobile daily brain games app inspired by Nintend
 **Decided**
 - **First launch:** meet your noggin, tell it **your name**, learn in simple words what playing does for it, give your **birth year**, take a quick test, get your first score.
   - Meet: the noggin says "Hello! I'm your noggin." Line: "Every day you play, your noggin gets a little smarter." Button: **"Let's go!"**
-  - Name: the noggin asks "What's your name?" and answers "Hi, Derek!". The player names themselves; the noggin isn't named.
+  - Name: the noggin asks "What's your name?"; button **"Next"**; then it answers "Hi, Derek!". The player names themselves; the noggin isn't named.
   - Birth year: picked on a **scroll wheel** (starts at 1990, covers the last 100 years), the chosen year in pen.
   - Ready: "Let's find your starting point." with the real number of drills ("Two quick drills."), so it stays right as drills are added.
 - **Daily:** come back, take **one score test a day**, make your noggin happy, see your score change. A daily habit, almost like a Tamagotchi.

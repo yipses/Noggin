@@ -63,7 +63,7 @@ export default function Onboarding() {
                 <PenInput value={name} onChangeText={setName} placeholder="Alex" maxLength={20} autoFocus onSubmit={() => nameOk && setStep('birth')} />
                 <GridRule width={220} />
               </View>
-              <Button title="That's me!" disabled={!nameOk} onPress={() => setStep('birth')} />
+              <Button title="Next" disabled={!nameOk} onPress={() => setStep('birth')} />
             </View>
           )}
 
